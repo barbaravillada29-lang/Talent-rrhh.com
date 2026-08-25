@@ -141,7 +141,8 @@
   .stat .lbl{font-size:14px; color:var(--ink-dim); margin-top:6px;}
 
   /* PACKAGES */
-  .pkg-tabs{display:inline-flex; background:var(--surface); border:1px solid var(--line); border-radius:100px; padding:5px; margin-bottom:32px; gap:4px;}
+  .pkg-tabs{display:flex; max-width:100%; overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:100px; padding:5px; margin-bottom:32px; gap:4px;}
+  .pkg-tab{flex-shrink:0;}
   .pkg-tab{font-family:'JetBrains Mono', monospace; font-size:13px; padding:10px 22px; border-radius:100px; border:none; background:transparent; color:var(--ink-dim); transition:all .3s ease;}
   .pkg-tab.active{background:var(--sage); color:var(--bg); font-weight:600;}
   .pkg-panel{display:none;}
@@ -154,6 +155,19 @@
   .pkg-desc{font-size:14px; color:var(--ink-dim); flex-grow:1; margin-bottom:16px;}
   .pkg-cobro{font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--sage); border-top:1px solid var(--line); padding-top:14px;}
 
+  /* DIAGNOSTIC BANNER */
+  .diag-panel{
+    text-align:center;
+    max-width:680px; margin:0 auto;
+    padding:56px 40px;
+    border:1px solid var(--nude-dim);
+    border-radius:20px;
+    background:radial-gradient(500px 260px at 50% 0%, rgba(217,191,160,0.10), transparent 70%), var(--surface);
+  }
+  .diag-panel .eyebrow{justify-content:center;}
+  .diag-panel h2{font-size:clamp(26px,3.6vw,36px); margin-bottom:16px;}
+  .diag-panel p{color:var(--ink-dim); font-size:16px; max-width:520px; margin:0 auto 30px;}
+
   /* CLOSE */
   .close-section h2{font-size:clamp(30px,5vw,54px); max-width:760px; color:var(--ink);}
   .close-section .accent{color:var(--nude);}
@@ -164,8 +178,9 @@
   .placeholder-note a:hover{border-color:var(--nude);}
 
   footer{border-top:1px solid var(--line); padding:36px 0;}
-  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  footer .footer-top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
   footer p{font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--ink-dim);}
+  .founder-credit{margin-top:22px; padding-top:22px; border-top:1px solid var(--line); font-size:12px !important;}
 
   @media (max-width:640px){
     section{padding:70px 0;}
@@ -264,6 +279,17 @@
   </div>
 </section>
 
+<section class="tight" id="diagnostico">
+  <div class="wrap">
+    <div class="diag-panel reveal">
+      <div class="eyebrow">diagnóstico</div>
+      <h2>¿No sabes por dónde empezar?</h2>
+      <p>Te ofrecemos un diagnóstico completo de tu situación actual en RRHH y SG-SST — nómina, incapacidades, contratación, procesos, de todo. Sales con un panorama claro de qué necesitas y por dónde arrancar.</p>
+      <a href="https://wa.me/573017423078?text=Hola%2C%20quiero%20solicitar%20un%20diagn%C3%B3stico%20de%20RRHH%20y%20SG-SST%20con%20Talent" class="close-cta" target="_blank" rel="noopener">Solicita tu diagnóstico →</a>
+    </div>
+  </div>
+</section>
+
 <section id="paquetes">
   <div class="wrap">
     <div class="section-head reveal">
@@ -273,26 +299,51 @@
 
     <div class="pkg-tabs reveal">
       <button class="pkg-tab active" data-pkg="proyecto">Proyectos</button>
+      <button class="pkg-tab" data-pkg="sgsst">SG-SST</button>
       <button class="pkg-tab" data-pkg="recurrente">Recurrente</button>
+      <button class="pkg-tab" data-pkg="medida">A la Medida</button>
     </div>
 
     <div class="pkg-panel pkg-grid active" data-panel="proyecto">
       <div class="pkg-card">
         <div class="pkg-name">A la Carta</div>
-        <div class="pkg-desc">Un servicio puntual del portafolio: una política, un diagnóstico, una auditoría.</div>
+        <div class="pkg-desc">Un servicio puntual del portafolio: una política, un diagnóstico puntual, una auditoría.</div>
         <div class="pkg-cobro">pago único por alcance</div>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Diagnóstico de RRHH</div>
+        <div class="pkg-desc">Evaluación completa de tu situación actual: nómina, contratación, procesos, cultura. Sales con un panorama claro de qué necesitas y por dónde arrancar.</div>
+        <div class="pkg-cobro">pago único</div>
       </div>
       <div class="pkg-card featured">
         <div class="pkg-name">Fundación</div>
-        <div class="pkg-desc">RRHH desde cero: diagnóstico, estructura, nómina, SG-SST, políticas y dashboard inicial.</div>
+        <div class="pkg-desc">RRHH desde cero: diagnóstico, estructura, nómina, políticas y dashboard inicial. (SG-SST se cotiza aparte, ver pestaña SG-SST).</div>
         <div class="pkg-cobro">proyecto por fases</div>
+      </div>
+    </div>
+
+    <div class="pkg-panel pkg-grid" data-panel="sgsst">
+      <div class="pkg-card">
+        <div class="pkg-name">Estándares Mínimos</div>
+        <div class="pkg-desc">Cumplimiento de la resolución vigente de SG-SST para tu empresa.</div>
+        <div class="pkg-cobro">pago único</div>
+      </div>
+      <div class="pkg-card featured">
+        <div class="pkg-name">Implementación</div>
+        <div class="pkg-desc">Diseño e implementación completa del SG-SST desde cero: documentación, COPASST, protocolos.</div>
+        <div class="pkg-cobro">pago único</div>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Gestión Mensual</div>
+        <div class="pkg-desc">Manejo y mantenimiento del sistema mes a mes, por horas asignadas — seguimiento, actualización y acompañamiento continuo.</div>
+        <div class="pkg-cobro">mensualidad por horas</div>
       </div>
     </div>
 
     <div class="pkg-panel pkg-grid" data-panel="recurrente">
       <div class="pkg-card">
         <div class="pkg-name">Esencial</div>
-        <div class="pkg-desc">Nómina básica, SG-SST mínimo, soporte legal puntual y un dashboard básico.</div>
+        <div class="pkg-desc">Nómina básica, soporte legal puntual y un dashboard básico.</div>
         <div class="pkg-cobro">mensualidad por empleado</div>
       </div>
       <div class="pkg-card">
@@ -302,8 +353,16 @@
       </div>
       <div class="pkg-card featured">
         <div class="pkg-name">Integral</div>
-        <div class="pkg-desc">Los 13 servicios, IA incluida, acompañamiento en auditorías, punto de contacto dedicado.</div>
+        <div class="pkg-desc">Los demás servicios del portafolio, IA incluida, acompañamiento en auditorías, punto de contacto dedicado. SG-SST se maneja como proyecto independiente.</div>
         <div class="pkg-cobro">mensualidad premium</div>
+      </div>
+    </div>
+
+    <div class="pkg-panel pkg-grid" data-panel="medida">
+      <div class="pkg-card featured">
+        <div class="pkg-name">Solución a la Medida</div>
+        <div class="pkg-desc">Si ninguno de estos planes se ajusta a tu empresa, diseñamos una propuesta 100% personalizada según tu tamaño, tu sector y tu necesidad específica.</div>
+        <div class="pkg-cobro">cobro según alcance definido</div>
       </div>
     </div>
   </div>
