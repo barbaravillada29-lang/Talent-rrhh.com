@@ -90,8 +90,25 @@
   .tag:hover{background:var(--nude); color:var(--bg);}
   @keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
 
+
+  /* SECTION TABS (navegación por secciones) */
+  .sec-bar{position:sticky; top:var(--nav-h,100px); z-index:40; background:rgba(0,0,0,0.88); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .sec-tabs{display:flex; gap:8px; padding:14px 0; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
+  .sec-tabs::-webkit-scrollbar{display:none;}
+  .sec-tab{flex:0 0 auto; display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--ink-dim); background:transparent; border:1px solid var(--line); padding:10px 18px; border-radius:100px; transition:all .25s ease; white-space:nowrap;}
+  .sec-tab span{font-size:11px; color:var(--nude-dim);}
+  .sec-tab:hover{color:var(--ink); border-color:var(--nude-dim);}
+  .sec-tab.active{background:var(--nude); color:var(--bg); border-color:var(--nude);}
+  .sec-tab.active span{color:var(--bg); opacity:.6;}
+  .js .page{display:none;}
+  .js .page.active{display:block; animation:pageIn .45s ease;}
+  .js section.page{padding-top:64px;}
+  @keyframes pageIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
   section{padding:110px 0;}
   section.tight{padding:70px 0;}
+  .js section.page{padding-top:64px; padding-bottom:90px;}
+  .js section.page.tight{padding-bottom:60px;}
   .section-head{max-width:640px; margin-bottom:50px;}
   .section-head h2{font-size:clamp(28px,4vw,42px); color:var(--ink);}
   .section-head p{color:var(--ink-dim); margin-top:14px; font-size:17px;}
@@ -194,6 +211,7 @@
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add("js");</script>
 
 <nav>
   <div class="wrap">
@@ -218,7 +236,20 @@
   </div>
 </header>
 
-<section id="diff">
+<div class="sec-bar" id="secBar">
+  <div class="wrap">
+    <div class="sec-tabs" role="tablist">
+      <button class="sec-tab" data-go="reprogramar" role="tab"><span>01</span>Reprogramar</button>
+      <button class="sec-tab" data-go="diferencial" role="tab"><span>02</span>Diferencial</button>
+      <button class="sec-tab" data-go="portafolio" role="tab"><span>03</span>Portafolio</button>
+      <button class="sec-tab" data-go="publico" role="tab"><span>04</span>Para quién</button>
+      <button class="sec-tab" data-go="diagnostico" role="tab"><span>05</span>Diagnóstico</button>
+      <button class="sec-tab" data-go="paquetes" role="tab"><span>06</span>Paquetes</button>
+    </div>
+  </div>
+</div>
+
+<section id="diff" class="page" data-page="reprogramar">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">reprogramar.diff</div>
@@ -239,7 +270,7 @@
   </div>
 </section>
 
-<section class="tight">
+<section class="tight page" id="diferencial" data-page="diferencial">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">diferencial</div>
@@ -255,32 +286,32 @@
   </div>
 </section>
 
-<section id="servicios">
+<section id="servicios" class="page" data-page="portafolio">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">portafolio</div>
-      <h2>Las 13 líneas de servicio</h2>
+      <h2>Las 14 líneas de servicio</h2>
       <p>Dale clic a cada una para ver el detalle completo.</p>
     </div>
     <div id="accordion" class="reveal"></div>
   </div>
 </section>
 
-<section class="tight">
+<section class="tight page" id="publico" data-page="publico">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">publico-objetivo</div>
       <h2>Para quién es esto</h2>
     </div>
     <div class="stat-row reveal">
-      <div class="stat"><div class="num" data-count="13">0</div><div class="lbl">líneas de servicio, un solo aliado</div></div>
+      <div class="stat"><div class="num" data-count="14">0</div><div class="lbl">líneas de servicio, un solo aliado</div></div>
       <div class="stat"><div class="num" data-count="1">0</div><div class="lbl">empleado en adelante — sin límite superior</div></div>
       <div class="stat"><div class="num">∞</div><div class="lbl">sectores — no nos limitamos a un nicho industrial</div></div>
     </div>
   </div>
 </section>
 
-<section class="tight" id="diagnostico">
+<section class="tight page" id="diagnostico" data-page="diagnostico">
   <div class="wrap">
     <div class="diag-panel reveal">
       <div class="eyebrow">diagnóstico</div>
@@ -291,7 +322,18 @@
   </div>
 </section>
 
-<section id="paquetes">
+<section class="tight page" id="independientes" data-page="publico">
+  <div class="wrap">
+    <div class="diag-panel reveal">
+      <div class="eyebrow">independientes</div>
+      <h2>¿Trabajas por tu cuenta?</h2>
+      <p>Si eres contratista o independiente, tu seguridad social es tu responsabilidad, y un error en el IBC o un aporte atrasado puede salirte caro. Nos encargamos de tus afiliaciones y de tu PILA cada mes, para que tú solo te ocupes de trabajar.</p>
+      <a href="https://wa.me/573017423078?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20seguridad%20social%20para%20independientes%20con%20Talent" class="close-cta" target="_blank" rel="noopener">Escríbenos por WhatsApp →</a>
+    </div>
+  </div>
+</section>
+
+<section id="paquetes" class="page" data-page="paquetes">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">paquetes</div>
@@ -450,7 +492,7 @@
   btnNew.addEventListener('click', ()=>{ btnNew.classList.add('active'); btnOld.classList.remove('active'); renderDiff('new'); });
   renderDiff('old');
 
-  // ---- services accordion (13 lines) ----
+  // ---- services accordion (14 lines) ----
   const services = [
     ["Reclutamiento y Selección de Talento", [
       "Sourcing avanzado (boolean search en LinkedIn, Indeed, Computrabajo)",
@@ -478,6 +520,15 @@
       "Auditoría, depuración y conciliación de nómina",
       "Certificados laborales y Certificados de Ingresos y Retenciones",
       "Indicadores de nómina: costo de nómina, novedades recurrentes, errores de liquidación"
+    ]],
+    ["Seguridad Social para Independientes", [
+      "Afiliación a EPS, pensión y ARL (y caja de compensación, si la quieres)",
+      "Cálculo correcto de tu IBC según tus ingresos",
+      "Liquidación y pago mensual de tu PILA",
+      "Novedades: ingresos, retiros, cambios de EPS y traslados de pensión",
+      "Soportes de pago para presentar a tus contratantes",
+      "Revisión de tu historial de aportes y regularización de mora",
+      "Acompañamiento en incapacidades y licencias"
     ]],
     ["Seguridad y Salud en el Trabajo (SG-SST)", [
       "Diseño e implementación del SG-SST desde cero",
@@ -570,6 +621,38 @@
     });
     accordion.appendChild(item);
   });
+
+
+  // ---- navegación por secciones ----
+  (function(){
+    const tabs = document.querySelectorAll('.sec-tab');
+    const pages = document.querySelectorAll('.page');
+    const bar = document.getElementById('secBar');
+    const navEl = document.querySelector('nav');
+    function setNavH(){ document.documentElement.style.setProperty('--nav-h', navEl.offsetHeight + 'px'); }
+    setNavH(); window.addEventListener('resize', setNavH); window.addEventListener('load', setNavH);
+    const valid = Array.from(tabs).map(t=>t.dataset.go);
+    // ids de sección que antes eran anclas -> pestaña
+    const alias = {diff:'reprogramar', servicios:'portafolio', independientes:'publico', paquetes:'paquetes', diagnostico:'diagnostico'};
+    function show(name, scroll){
+      tabs.forEach(t=>{ const on = t.dataset.go===name; t.classList.toggle('active', on); t.setAttribute('aria-selected', on); });
+      pages.forEach(p=>p.classList.toggle('active', p.dataset.page===name));
+      try{ history.replaceState(null,'','#'+name); }catch(e){}
+      const act = document.querySelector('.sec-tab.active');
+      if(act){ act.scrollIntoView({inline:'center', block:'nearest'}); }
+      if(scroll){
+        const first = document.querySelector('.page.active');
+        const top = first.getBoundingClientRect().top + window.scrollY - navEl.offsetHeight - bar.offsetHeight;
+        window.scrollTo({top: Math.max(0, top), behavior:'smooth'});
+      }
+      // re-observar para animaciones de entrada dentro de la pestaña recién mostrada
+      document.querySelectorAll('.page.active .reveal:not(.visible)').forEach(el=>revealIO.observe(el));
+    }
+    tabs.forEach(t=>t.addEventListener('click', ()=>show(t.dataset.go, true)));
+    let h = (location.hash||'').replace('#','');
+    if(alias[h]) h = alias[h];
+    if(valid.includes(h)){ show(h, true); } else { show('reprogramar', false); }
+  })();
 
   // ---- animated stat counters ----
   const counters = document.querySelectorAll('.num[data-count]');
